@@ -1,0 +1,18 @@
+#spring.ai.openai.api-key=dummy
+spring:
+  application:
+    name: rag
+  ai:
+    ollama:
+      embedding:
+        model: llama3-gradient
+        options:
+          top-k: 10
+#    openai:
+#      base-url: ${LLM_BASE_URL_OPENAI_TYPE://localhost:8081}
+#      embedding:
+#        options:
+#          model: llama3-gradient
+#      api-key: ${LLM_API_KEY_OPENAI_TYPE:dummy}
+#      chat:
+#        base-url:
