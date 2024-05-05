@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class PdfParserService {
+public class CsvParserService {
     public List<Document> getContentFromCsv(){
         try (Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/sample_nda.csv"))
              ; CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT

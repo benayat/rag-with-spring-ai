@@ -7,20 +7,34 @@ logging:
           rag:
             controller: DEBUG
 spring:
+  mvc:
+    async:
+      request-timeout: -1
   application:
     name: rag
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   ai:
+    retry:
+      backoff:
+        initial-interval: 2000
+        max-interval: 10000
+        multiplier: 4
+      max-attempts: 20
     ollama:
       embedding:
-        model: llama3-gradient
+        model: nomic-embed-text
         options:
-          top-k: 10
+          top-k: 3
+          num-thread: 8
+          num-ctx: 8192
+          num-batch: 768
+        enabled: true
       base-url: http://localhost:11434
       chat:
+        model: llama3-gradient
         options:
-          model: llama3-gradient
+          num-ctx: 64000
     vectorstore:
       milvus:
         client:
@@ -29,10 +43,10 @@ spring:
           username: "root"
           password: "milvus"
         database-name: "default"
-        collection-name: "vector_store"
-        embedding-dimension: 1536
+        collection-name: "vector_store1"
         index-type: ivf_flat
         metric-type: cosine
+        embedding-dimension: 768
 init:
   database: ${INIT_DATABASE:false}
 #    openai:
