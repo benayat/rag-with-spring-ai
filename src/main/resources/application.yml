@@ -1,13 +1,40 @@
 #spring.ai.openai.api-key=dummy
+logging:
+  level:
+    org:
+      benaya:
+        ai:
+          rag:
+            controller: DEBUG
 spring:
   application:
     name: rag
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   ai:
     ollama:
       embedding:
         model: llama3-gradient
         options:
           top-k: 10
+      base-url: http://localhost:11434
+      chat:
+        options:
+          model: llama3-gradient
+    vectorstore:
+      milvus:
+        client:
+          host: "localhost"
+          port: 19530
+          username: "root"
+          password: "milvus"
+        database-name: "default"
+        collection-name: "vector_store"
+        embedding-dimension: 1536
+        index-type: ivf_flat
+        metric-type: cosine
+init:
+  database: ${INIT_DATABASE:false}
 #    openai:
 #      base-url: ${LLM_BASE_URL_OPENAI_TYPE://localhost:8081}
 #      embedding:
