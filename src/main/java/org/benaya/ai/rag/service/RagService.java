@@ -2,13 +2,12 @@ package org.benaya.ai.rag.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.benaya.ai.rag.repository.MilvusRepository;
 import org.springframework.ai.chat.messages.Message;
 import org.springframework.ai.chat.messages.UserMessage;
 import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.ai.chat.prompt.SystemPromptTemplate;
 import org.springframework.ai.document.Document;
-import org.springframework.ai.vectorstore.MilvusVectorStore;
-import org.springframework.ai.vectorstore.SearchRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
@@ -26,11 +25,9 @@ public class RagService {
     @Value("${spring.ai.ollama.embedding.options.top-k}")
     private int topK;
 
-    private final MilvusVectorStore milvusVectorStore;
-
+    private final MilvusRepository milvusRepository;
     public Prompt generatePromptFromClientPrompt(String clientPrompt) {
-        SearchRequest searchRequest = SearchRequest.query(clientPrompt).withTopK(topK);
-        List<Document> docs = milvusVectorStore.similaritySearch(searchRequest);
+        List<Document> docs = milvusRepository.similaritySearchWithTopK(clientPrompt, topK);
         Message systemMessage = getSystemMessage(docs);
         log.info("System message: {}", systemMessage.getContent());
         UserMessage userMessage = new UserMessage(clientPrompt);

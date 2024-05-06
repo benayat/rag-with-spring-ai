@@ -1,15 +1,7 @@
-#spring.ai.openai.api-key=dummy
-logging:
-  level:
-    org:
-      benaya:
-        ai:
-          rag:
-            controller: DEBUG
 spring:
   mvc:
     async:
-      request-timeout: -1
+      request-timeout: ${SPRING_MVC_ASYNC_REQUEST-TIMEOUT:-1}
   application:
     name: rag
   autoconfigure:
@@ -23,37 +15,26 @@ spring:
       max-attempts: 20
     ollama:
       embedding:
-        model: nomic-embed-text
+        model: ${EMBEDDING_MODEL:nomic-embed-text}
         options:
-          top-k: 3
-          num-thread: 8
+          top-k: ${OLLAMA_EMBEDDING_TOP-K:10}
+          num-thread: ${EMBEDDINGS_NUM_THREAD:8}
           num-ctx: 8192
           num-batch: 768
+          top-p: ${OLLAMA_EMBEDDING_TOP-P:0.5}
         enabled: true
       base-url: http://localhost:11434
       chat:
-        model: llama3-gradient
+        model: ${CHAT_MODEL:llama3-gradient}
         options:
-          num-ctx: 64000
+          num-ctx: ${CHAT_MODEL_CONTEXT_LENGTH:64000}
+          num-thread: ${CHAT_NUM_THREAD:8}
+          top-k: ${CHAT_TOP-K:1}
+          top-p: ${CHAT_TOP-P:0.5}
+          temperature: ${CHAT_TEMPERATURE:0.5}
     vectorstore:
       milvus:
-        client:
-          host: "localhost"
-          port: 19530
-          username: "root"
-          password: "milvus"
-        database-name: "default"
-        collection-name: "vector_store1"
-        index-type: ivf_flat
-        metric-type: cosine
-        embedding-dimension: 768
+        collection-name: ${MILVUS_COLLECTION_NAME:vector_store1}
+        embedding-dimension: ${MILVUS_EMBEDDING_DIM:768}
 init:
   database: ${INIT_DATABASE:false}
-#    openai:
-#      base-url: ${LLM_BASE_URL_OPENAI_TYPE://localhost:8081}
-#      embedding:
-#        options:
-#          model: llama3-gradient
-#      api-key: ${LLM_API_KEY_OPENAI_TYPE:dummy}
-#      chat:
-#        base-url:

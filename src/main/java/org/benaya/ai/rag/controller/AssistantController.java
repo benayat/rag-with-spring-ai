@@ -21,7 +21,11 @@ public class AssistantController {
     @PostMapping(value = "/chat", produces = "text/event-stream")
     public Flux<String> prompt(@RequestBody String clientPrompt) {
         Prompt prompt = ragService.generatePromptFromClientPrompt(clientPrompt);
-        return chatGeneratorService.generateStream(prompt).map(chatResponse -> chatResponse.getResult().getOutput().getContent());
+        return chatGeneratorService.generateStream(prompt)
+                .map(this::extractContentFromChatResponse);
+    }
+    private String extractContentFromChatResponse(ChatResponse chatResponse) {
+        return chatResponse.getResult().getOutput().getContent();
     }
 
 }
