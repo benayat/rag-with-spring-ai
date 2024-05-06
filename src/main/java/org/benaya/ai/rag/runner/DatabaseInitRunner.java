@@ -2,7 +2,7 @@ package org.benaya.ai.rag.runner;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.benaya.ai.rag.repository.MilvusRepository;
+import org.benaya.ai.rag.repository.DocumentRepository;
 import org.benaya.ai.rag.service.CsvParserService;
 import org.springframework.ai.document.Document;
 import org.springframework.boot.ApplicationArguments;
@@ -17,7 +17,7 @@ import java.util.List;
 @Slf4j
 @ConditionalOnProperty(value = {"init.database"}, havingValue = "true")
 public class DatabaseInitRunner implements ApplicationRunner {
-    private final MilvusRepository milvusRepository;
+    private final DocumentRepository documentRepository;
     private final CsvParserService csvParserService;
 
     @Override
@@ -25,7 +25,7 @@ public class DatabaseInitRunner implements ApplicationRunner {
         List<Document> documents = csvParserService.getContentFromCsv();
         log.info("Adding documents to vector store");
         documents.forEach(doc -> log.info("Document: {}", doc));
-        milvusRepository.addDocuments(documents);
+        documentRepository.addDocuments(documents);
         log.info("done!");
     }
 }

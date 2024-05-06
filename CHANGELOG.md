@@ -10,3 +10,9 @@
 - Encapsulated all Vectordb operations in a repository.
 - cleaned application.yml file from constants, and added env vars for customization.
 - todo: create better reader to much all types of documents and paragraphs. 
+
+#### 1.0.0
+- changed to Postgres DB for simplicity, and added relevant definitions.
+- changed vectorStore chatClient to generic\interface types to avoid coupling.
+
+todo: set up docker compose. 

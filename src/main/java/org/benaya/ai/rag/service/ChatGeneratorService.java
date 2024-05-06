@@ -2,9 +2,10 @@ package org.benaya.ai.rag.service;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.ai.chat.ChatClient;
 import org.springframework.ai.chat.ChatResponse;
+import org.springframework.ai.chat.StreamingChatClient;
 import org.springframework.ai.chat.prompt.Prompt;
-import org.springframework.ai.ollama.OllamaChatClient;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 
@@ -12,14 +13,15 @@ import reactor.core.publisher.Flux;
 @RequiredArgsConstructor
 @Getter
 public class ChatGeneratorService {
-    private final OllamaChatClient ollamaChatClient;
+    private final StreamingChatClient streamingChatClient;
+    private final ChatClient chatClient;
     public String generate(String message) {
-        return getOllamaChatClient().call(message);
+        return getChatClient().call(message);
     }
     public Flux<String> generateStream(String message) {
-        return getOllamaChatClient().stream(message);
+        return getStreamingChatClient().stream(message);
     }
     public Flux<ChatResponse> generateStream(Prompt prompt) {
-        return getOllamaChatClient().stream(prompt);
+        return getStreamingChatClient().stream(prompt);
     }
 }

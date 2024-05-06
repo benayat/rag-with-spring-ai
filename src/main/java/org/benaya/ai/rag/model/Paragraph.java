@@ -1,10 +1,6 @@
 package org.benaya.ai.rag.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import org.jetbrains.annotations.NotNull;
+import lombok.*;
 import org.springframework.ai.document.Document;
 
 import java.util.Map;
@@ -19,7 +15,7 @@ public class Paragraph {
     private String title;
     private String content;
 
-    public Document toDocument(@NotNull Paragraph paragraph) {
+    public Document toDocument(@NonNull Paragraph paragraph) {
         return new Document(paragraph.getContent(), Map.of("title", paragraph.getTitle(), "page", paragraph.getPage(), "id", paragraph.getId()));
     }
 }

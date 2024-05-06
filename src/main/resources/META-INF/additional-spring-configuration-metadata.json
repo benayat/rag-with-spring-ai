@@ -4,5 +4,11 @@
       "name": "init.database",
       "type": "java.lang.String",
       "description": "property to decide if the database should be initialized."
-  }
-] }
+    },
+    {
+      "name": "queries.top-k",
+      "type": "java.lang.String",
+      "description": " queries.top-k."
+    }
+  ]
+}

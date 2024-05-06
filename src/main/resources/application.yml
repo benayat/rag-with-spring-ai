@@ -4,8 +4,12 @@ spring:
       request-timeout: ${SPRING_MVC_ASYNC_REQUEST-TIMEOUT:-1}
   application:
     name: rag
-  autoconfigure:
-    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+#  autoconfigure:
+#    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
   ai:
     retry:
       backoff:
@@ -33,8 +37,15 @@ spring:
           top-p: ${CHAT_TOP-P:0.5}
           temperature: ${CHAT_TEMPERATURE:0.5}
     vectorstore:
-      milvus:
-        collection-name: ${MILVUS_COLLECTION_NAME:vector_store1}
-        embedding-dimension: ${MILVUS_EMBEDDING_DIM:768}
+      pgvector:
+        index-type: ${VECTORSTORE_PGVECTOR_INDEX-TYPE:hnsw}
+        dimensions: ${VECTORSTORE_PGVECTOR_DIMENSIONS:768}
+        distance-type: cosine_distance
+
+#      milvus:
+#        collection-name: ${MILVUS_COLLECTION_NAME:vector_store1}
+#        embedding-dimension: ${MILVUS_EMBEDDING_DIM:768}
 init:
   database: ${INIT_DATABASE:false}
+queries:
+  top-k: ${QUERIES_TOP-K:3}
