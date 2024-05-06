@@ -15,4 +15,5 @@
 - changed to Postgres DB for simplicity, and added relevant definitions.
 - changed vectorStore chatClient to generic\interface types to avoid coupling.
 
-todo: set up docker compose. 
+#### 1.0.1
+- set up docker-compose for running the system.

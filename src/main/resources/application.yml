@@ -7,9 +7,9 @@ spring:
 #  autoconfigure:
 #    exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
-    password: postgres
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/postgres}
+    username: ${SPRING_DATASOURCE_USERNAME:postgres}
+    password: ${SPRING_DATASOURCE_PASSWORD:postgres}
   ai:
     retry:
       backoff:
@@ -27,7 +27,7 @@ spring:
           num-batch: 768
           top-p: ${OLLAMA_EMBEDDING_TOP-P:0.5}
         enabled: true
-      base-url: http://localhost:11434
+      base-url: http://host.docker.internal:11434
       chat:
         model: ${CHAT_MODEL:llama3-gradient}
         options:
@@ -45,7 +45,7 @@ spring:
 #      milvus:
 #        collection-name: ${MILVUS_COLLECTION_NAME:vector_store1}
 #        embedding-dimension: ${MILVUS_EMBEDDING_DIM:768}
-init:
-  database: ${INIT_DATABASE:false}
+database:
+  init: ${DATABASE_INIT:false}
 queries:
   top-k: ${QUERIES_TOP-K:3}

@@ -10,10 +10,8 @@ All components used are free and open source.
 
 #### Running the system
 ##### Prerequisites
-- a running instance of postgres with pgvector extension [enabled](https://docs.spring.io/spring-ai/reference/api/vectordbs/pgvector.html#appendix_a:~:text=false-,Run%20Postgres%20%26%20PGVector%20DB,POSTGRES_PASSWORD%3Dpostgres%20ankane%2Fpgvector,-You%20can%20connect). if it's not local, you need to set up the relevant connection details in the `application.yml` file.
+- docker
 - a running instance of ollama, with the chat and embeddings downloaded pulled, and chat model running.
-- you *don't* need to have maven installed, as the project uses the maven wrapper.
 
 ##### Running
-1. Clone the repository
-2. run `./mvnw spring-boot:run` in the root directory of the project.
+Clone the repo, and run `docker-compose up`.

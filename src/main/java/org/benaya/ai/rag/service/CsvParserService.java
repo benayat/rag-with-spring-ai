@@ -5,6 +5,7 @@ import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.benaya.ai.rag.model.Paragraph;
 import org.springframework.ai.document.Document;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -18,8 +19,8 @@ import java.util.stream.Collectors;
 
 @Service
 public class CsvParserService {
-    public List<Document> getContentFromCsv(){
-        try (Reader reader = Files.newBufferedReader(Paths.get("src/main/resources/sample_nda.csv"))
+    public List<Document> getContentFromCsv(Resource resource){
+        try (Reader reader = Files.newBufferedReader(Paths.get(resource.getURI()))
              ; CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT
                 .builder()
                 .setHeader().setSkipHeaderRecord(true)
