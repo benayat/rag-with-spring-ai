@@ -2,13 +2,14 @@ version: '3.8'
 services:
   rag:
     container_name: rag
-    image: rag:1.0.0
+    image: rag:1.0.2
     ports:
       - "8080:8080"
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/postgres
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
+      - OLLAMA_BASE_URL=http://ollama:11434
       - DATABASE_INIT=false
     depends_on:
       postgres:
@@ -28,3 +29,15 @@ services:
       interval: 5s
       timeout: 60s
       retries: 5
+  ollama:
+    container_name: ollama-offline
+    image: custom-offline-ollama:1.0.0
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_MODELS=/root/.ollama/models
+    volumes:
+      - ollama-2:/root/.ollama
+
+volumes:
+  ollama-2:

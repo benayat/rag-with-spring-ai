@@ -17,3 +17,7 @@
 
 #### 1.0.1
 - set up docker-compose for running the system.
+
+#### 1.0.2
+- changed to mistral for faster inference.
+- updated docker-compose to be a self-contained system.

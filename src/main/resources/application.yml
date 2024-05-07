@@ -27,11 +27,12 @@ spring:
           num-batch: 768
           top-p: ${OLLAMA_EMBEDDING_TOP-P:0.5}
         enabled: true
-      base-url: http://host.docker.internal:11434
+      base-url: ${OLLAMA_BASE_URL:http://host.docker.internal:11434}
       chat:
-        model: ${CHAT_MODEL:llama3-gradient}
+        model: ${CHAT_MODEL:mistral}
         options:
-          num-ctx: ${CHAT_MODEL_CONTEXT_LENGTH:64000}
+          num-ctx: ${CHAT_MODEL_CONTEXT_LENGTH:32768}
+          num-batch: 768
           num-thread: ${CHAT_NUM_THREAD:8}
           top-k: ${CHAT_TOP-K:1}
           top-p: ${CHAT_TOP-P:0.5}
