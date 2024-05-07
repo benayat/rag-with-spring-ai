@@ -10,8 +10,7 @@ All components used are free and open source.
 
 #### Running the system
 ##### Prerequisites
-- docker
-- a running instance of ollama, with the chat and embeddings downloaded pulled, and chat model running.
+- docker, make sure to login to dockerhub.
 
 ##### Running
-Clone the repo, and run `docker-compose up`.
+simply download the file "docker-compose.yml" and run `docker-compose up`.
