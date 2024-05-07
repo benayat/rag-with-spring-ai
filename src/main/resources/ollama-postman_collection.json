@@ -1,0 +1,46 @@
+{
+	"info": {
+		"_postman_id": "546e95a8-f79b-4f13-81b2-ff4c4db2c012",
+		"name": "ollama בדיקה",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9576700"
+	},
+	"item": [
+		{
+			"name": "assistant-chat",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "text/event-stream",
+						"type": "text",
+						"uuid": "a0357676-b30d-4b31-ac71-6f6e2acd9623"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "to the law of which state does this nda apply to?",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/assistant/chat",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"assistant",
+						"chat"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
