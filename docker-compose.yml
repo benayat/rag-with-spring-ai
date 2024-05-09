@@ -10,7 +10,7 @@ services:
       - SPRING_DATASOURCE_USERNAME=postgres
       - SPRING_DATASOURCE_PASSWORD=postgres
       - OLLAMA_BASE_URL=http://ollama:11434
-      - DATABASE_INIT=false
+      - DATABASE_INIT=true
     depends_on:
       postgres:
         condition: service_healthy
